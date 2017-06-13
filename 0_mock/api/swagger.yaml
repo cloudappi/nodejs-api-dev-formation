@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Service to manage users"
-  version: "0.0.1"
+  version: "0.0.0"
   title: "users-service"
   contact:
     name: "Francisco Canela"
