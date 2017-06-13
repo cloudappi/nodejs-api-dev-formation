@@ -1,0 +1,80 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: users-service
+  description: Service to manage users
+  contact:
+    name: Francisco Canela
+    url: 'http://www.cloudappi.net'
+    email: francisco.canela@cloudappi.net
+  license:
+    name: MIT
+    url: 'http://opensource.org/licenses/MIT'
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      surname:
+        type: string
+  UserRequest:
+    type: object
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      surname:
+        type: string
+      password:
+        type: string
+paths:
+  /users:
+    get:
+      responses:
+        '200':
+          description: Array of all users
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+    post:
+      parameters:
+        - in: body
+          name: UserRequest
+          required: true
+          description: Fields required to create/update an user
+          schema:
+            $ref: '#/definitions/UserRequest'
+      responses:
+        '201':
+          description: User created succesfully
+  '/users/{userId}':
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        type: string
+        description: id field of the user to be operated
+    delete:
+      responses:
+        '203':
+          description: User deleted succesfully
+        '404':
+          description: User not found
+    put:
+      parameters:
+        - in: body
+          name: UserRequest
+          required: true
+          description: Fields required to create/update an user
+          schema:
+            $ref: '#/definitions/UserRequest'
+      responses:
+        '200':
+          description: User updated succesfully
