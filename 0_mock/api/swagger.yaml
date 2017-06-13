@@ -1,0 +1,127 @@
+---
+swagger: "2.0"
+info:
+  description: "Service to manage users"
+  version: "0.0.1"
+  title: "users-service"
+  contact:
+    name: "Francisco Canela"
+    url: "http://www.cloudappi.net"
+    email: "francisco.canela@cloudappi.net"
+  license:
+    name: "MIT"
+    url: "http://opensource.org/licenses/MIT"
+paths:
+  /users:
+    get:
+      operationId: "usersGET"
+      parameters: []
+      responses:
+        200:
+          description: "Array of all users"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/inline_response_200"
+      x-swagger-router-controller: "Default"
+    post:
+      operationId: "usersPOST"
+      parameters:
+      - in: "body"
+        name: "UserRequest"
+        description: "Fields required to create/update an user"
+        required: true
+        schema:
+          $ref: "#/definitions/UserRequest_1"
+      responses:
+        201:
+          description: "User created succesfully"
+      x-swagger-router-controller: "Default"
+  /users/{userId}:
+    put:
+      operationId: "usersUserIdPUT"
+      parameters:
+      - in: "body"
+        name: "UserRequest"
+        description: "Fields required to create/update an user"
+        required: true
+        schema:
+          $ref: "#/definitions/UserRequest_2"
+      - name: "userId"
+        in: "path"
+        description: "id field of the user to be operated"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "User updated succesfully"
+      x-swagger-router-controller: "Default"
+    delete:
+      operationId: "usersUserIdDELETE"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "id field of the user to be operated"
+        required: true
+        type: "string"
+      responses:
+        203:
+          description: "User deleted succesfully"
+        404:
+          description: "User not found"
+      x-swagger-router-controller: "Default"
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      email:
+        type: "string"
+      name:
+        type: "string"
+      surname:
+        type: "string"
+  UserRequest:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      name:
+        type: "string"
+      surname:
+        type: "string"
+      password:
+        type: "string"
+  inline_response_200:
+    properties:
+      id:
+        type: "string"
+      email:
+        type: "string"
+      name:
+        type: "string"
+      surname:
+        type: "string"
+  UserRequest_1:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      name:
+        type: "string"
+      surname:
+        type: "string"
+      password:
+        type: "string"
+  UserRequest_2:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      name:
+        type: "string"
+      surname:
+        type: "string"
+      password:
+        type: "string"
