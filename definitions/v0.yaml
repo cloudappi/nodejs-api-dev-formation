@@ -54,7 +54,7 @@ paths:
       responses:
         '201':
           description: User created succesfully
-  '/users/{userId}':
+  /users/{userId}:
     parameters:
       - name: userId
         in: path
@@ -63,9 +63,9 @@ paths:
         description: id field of the user to be operated
     delete:
       responses:
-        '203':
+        204:
           description: User deleted succesfully
-        '404':
+        404:
           description: User not found
     put:
       parameters:
@@ -76,5 +76,5 @@ paths:
           schema:
             $ref: '#/definitions/UserRequest'
       responses:
-        '200':
+        204:
           description: User updated succesfully
