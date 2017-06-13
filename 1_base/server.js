@@ -17,7 +17,7 @@ const httpStatus = require('http-status');
 
 // This library is used to avoid introducing databases in the
 // example.
-const FakeModel = require('simple-fake-model');
+const FakeModel = require('sync-simple-fake-model');
 
 /*
  * Configuration
@@ -31,9 +31,21 @@ const model = new FakeModel();
 
 // Some starting data
 model.insert({
+  email: 'marcoantonio.sanz@cloudappi.net',
+  name: 'Marco Antonio',
+  surname: 'Sanz'
+});
+
+model.insert({
   email: 'francisco.canela@cloudappi.net',
   name: 'Francisco',
   surname: 'Canela'
+});
+
+model.insert({
+  email: 'jorge.baumann@cloudappi.net',
+  name: 'Jorge',
+  surname: 'Baumann'
 });
 
 /*

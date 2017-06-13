@@ -17,7 +17,7 @@ const httpStatus = require('http-status');
 
 // This library is used to avoid introducing databases in the
 // example.
-const FakeModel = require('simple-fake-model');
+const FakeModel = require('sync-simple-fake-model');
 
 /*
  * Configuration
@@ -30,9 +30,21 @@ app.use(bodyParser.json());
 const model = new FakeModel();
 
 model.insert({
+  email: 'marcoantonio.sanz@cloudappi.net',
+  name: 'Marco Antonio',
+  surname: 'Sanz'
+});
+
+model.insert({
   email: 'francisco.canela@cloudappi.net',
   name: 'Francisco',
   surname: 'Canela'
+});
+
+model.insert({
+  email: 'jorge.baumann@cloudappi.net',
+  name: 'Jorge',
+  surname: 'Baumann'
 });
 
 /*
@@ -41,11 +53,9 @@ model.insert({
 
 // GET /users -- Get all users
 function getAllUsersController(request, response) {
-  model.list().then(function(users) {
-    response
-      .status(httpStatus.OK)
-      .json(users);
-  });
+  const users = model.list()
+
+  response.status(httpStatus.OK).json(users);
 }
 app.get('/users', getAllUsersController);
 
@@ -54,11 +64,9 @@ function createUserController(request, response) {
   const userData = request.body;
   delete userData.password;
 
-  const newUser = model.insert(userData).then(function(newUser) {
-    response
-      .status(httpStatus.CREATED)
-      .json(newUser);
-  });
+  const newUser = model.insert(userData);
+
+  response.status(httpStatus.CREATED).json(newUser);
 }
 app.post('/users', createUserController);
 
@@ -66,11 +74,9 @@ app.post('/users', createUserController);
 function deleteUserController(request, response) {
   const userId = request.params.userId;
 
-  model.deleteById(userId).then(function() {
-    response
-      .status(httpStatus.NO_CONTENT)
-      .send();
-  });
+  model.deleteById(userId);
+
+  response.status(httpStatus.NO_CONTENT).send();
 }
 app.delete('/users/:userId', deleteUserController);
 
@@ -79,11 +85,9 @@ function updateUserController(request, response) {
   const userId = request.params.userId;
   const newValues = request.body;
 
-  model.updateById(userId, newValues).then(function() {
-    response
-      .status(httpStatus.NO_CONTENT)
-      .send();
-  });
+  model.updateById(userId, newValues)
+
+  response.status(httpStatus.NO_CONTENT).send();
 }
 app.put('/users/:userId', updateUserController);
 
